@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -13,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 5f;
     
     public float walkableAngle = 45f;
+    
+    public LayerMask groundLayer;
+    public LayerMask fluidLayer;
     
     private Vector2 _input;
     
@@ -29,23 +33,34 @@ public class PlayerMovement : MonoBehaviour
         
         
         
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
             Jump();
-            
-        if (Input.GetKeyDown(KeyCode.W))
-            Jump();
-        
 ;
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) && IsInWater())
             GoDownInWater();
-        if (Input.GetKeyUp(KeyCode.S))
+        else if (Input.GetKeyUp(KeyCode.S))
+            fluidCollider.SetActive(true);
+        
+        if (Input.GetKeyDown(KeyCode.W) && IsInWater())
+            GoUpInWater();
+        else if (Input.GetKeyUp(KeyCode.W))
             fluidCollider.SetActive(true);
     }
-    
-    private void GoDownInWater()
+    private void GoUpInWater()
     {
         fluidCollider.SetActive(false);
+        _rb.velocity = new Vector2(_rb.velocity.x, speed);
+    }
+    private void GoDownInWater()
+    {
+        Debug.Log("Down");
+        fluidCollider.SetActive(false);
         _rb.velocity = new Vector2(_rb.velocity.x, -speed);
+    }
+
+    public bool IsInWater()
+    {
+        return (Physics2D.CircleCast(transform.position, 1, Vector2.down, 1f, 1<<fluidLayer));
     }
     
     private void FixedUpdate()
@@ -66,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
     
     private bool IsGrounded()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1f);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1f,groundLayer);
         if (hit.collider != null)
         {
             float angle = Vector2.Angle(hit.normal, Vector2.up);
@@ -74,5 +89,11 @@ public class PlayerMovement : MonoBehaviour
                 return true;
         }
         return false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 0.6f);
     }
 }
