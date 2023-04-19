@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     
     public LayerMask groundLayer;
     public LayerMask fluidLayer;
-    
+
     private Vector2 _input;
     
     // Start is called before the first frame update
@@ -31,20 +31,20 @@ public class PlayerMovement : MonoBehaviour
     {
         _input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         
-        
-        
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
             Jump();
-;
+        
         if (Input.GetKeyDown(KeyCode.S) && IsInWater())
             GoDownInWater();
-        else if (Input.GetKeyUp(KeyCode.S))
+        if (Input.GetKeyUp(KeyCode.S))
             fluidCollider.SetActive(true);
         
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) && IsInWater())
+        if (IsInWater() && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)))
             GoUpInWater();
-        else if (Input.GetKeyUp(KeyCode.W))
+        if (Input.GetKeyUp(KeyCode.W))
             fluidCollider.SetActive(true);
+        
+        Debug.Log(IsInWater());
     }
     private void GoUpInWater()
     {
@@ -57,11 +57,6 @@ public class PlayerMovement : MonoBehaviour
         _rb.velocity = new Vector2(_rb.velocity.x, -speed);
     }
 
-    public bool IsInWater()
-    {
-        return (Physics2D.CircleCast(transform.position, 1, Vector2.down, 1f, 1<<fluidLayer));
-    }
-    
     private void FixedUpdate()
     {
         Move();
@@ -80,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
     
     private bool IsGrounded()
     {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position + Vector3.down * .5f, .6f, Vector2.down, .1f, groundLayer);
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position + Vector3.down * .5f, .6f, Vector2.down, 5f, 1<<groundLayer);
         if (hit.collider != null)
         {
             float angle = Vector2.Angle(hit.normal, Vector2.up);
@@ -90,9 +85,14 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
+    private bool IsInWater()
+    {
+        return (Physics2D.OverlapCircleAll(transform.position, 1f, 1 << fluidLayer).Length > 0);
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 0.6f);
+        Gizmos.DrawWireSphere(transform.position, 1f);
     }
 }

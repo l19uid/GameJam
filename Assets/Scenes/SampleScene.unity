@@ -1176,8 +1176,8 @@ Transform:
   m_Father: {fileID: 216535243}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &970660054
-CapsuleCollider2D:
+--- !u!58 &970660054
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1189,9 +1189,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.25}
-  m_Size: {x: 1, y: 0.5}
-  m_Direction: 1
+  m_Offset: {x: 0, y: -0.2037766}
+  serializedVersion: 2
+  m_Radius: 0.2962234
 --- !u!1 &1012015346
 GameObject:
   m_ObjectHideFlags: 0
