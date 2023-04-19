@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 216535249}
   - component: {fileID: 216535247}
   - component: {fileID: 216535248}
+  - component: {fileID: 216535250}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -180,10 +181,10 @@ MonoBehaviour:
   walkableAngle: 45
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   fluidLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
 --- !u!114 &216535245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,7 +215,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 48f9832f0f913a542b6ffdea1a029de1, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -253,6 +254,19 @@ MonoBehaviour:
   pickupRange: 1
   currentPickupObject: {fileID: 0}
   fluidLayer: 7
+--- !u!114 &216535250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216535242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b64bcdc84b7666c4581b4332cd40ffeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 0
 --- !u!1001 &420244463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -406,7 +420,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 311
+    m_Bits: 1847
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -458,7 +472,7 @@ GameObject:
   - component: {fileID: 566179370}
   - component: {fileID: 566179369}
   - component: {fileID: 566179368}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Square (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -569,7 +583,7 @@ GameObject:
   - component: {fileID: 572990240}
   - component: {fileID: 572990239}
   - component: {fileID: 572990238}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Square (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -680,7 +694,7 @@ GameObject:
   - component: {fileID: 590242666}
   - component: {fileID: 590242665}
   - component: {fileID: 590242664}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Square (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -901,7 +915,7 @@ GameObject:
   - component: {fileID: 793701798}
   - component: {fileID: 793701797}
   - component: {fileID: 793701796}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Square (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1189,7 +1203,7 @@ GameObject:
   - component: {fileID: 1012015349}
   - component: {fileID: 1012015348}
   - component: {fileID: 1012015347}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1656,7 +1670,7 @@ GameObject:
   - component: {fileID: 1508024885}
   - component: {fileID: 1508024884}
   - component: {fileID: 1508024883}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}

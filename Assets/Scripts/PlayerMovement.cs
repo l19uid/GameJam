@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.S))
             fluidCollider.SetActive(true);
         
-        if (Input.GetKeyDown(KeyCode.W) && IsInWater())
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) && IsInWater())
             GoUpInWater();
         else if (Input.GetKeyUp(KeyCode.W))
             fluidCollider.SetActive(true);
@@ -53,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
     }
     private void GoDownInWater()
     {
-        Debug.Log("Down");
         fluidCollider.SetActive(false);
         _rb.velocity = new Vector2(_rb.velocity.x, -speed);
     }
@@ -81,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
     
     private bool IsGrounded()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1f,groundLayer);
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position + Vector3.down * .5f, .6f, Vector2.down, .1f, groundLayer);
         if (hit.collider != null)
         {
             float angle = Vector2.Angle(hit.normal, Vector2.up);

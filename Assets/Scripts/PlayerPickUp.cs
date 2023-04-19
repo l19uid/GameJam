@@ -52,7 +52,5 @@ public class PlayerPickUp : MonoBehaviour
         
         GameObject GO = Instantiate(currentPickupObject, pickupPosition.transform.position, Quaternion.identity);
         GO.GetComponent<Rigidbody2D>().AddForce(new Vector2(pickupPosition.transform.localPosition.x, pickupPosition.transform.localPosition.y));
-        
-        
     }
 }
