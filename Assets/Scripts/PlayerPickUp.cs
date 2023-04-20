@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerPickUp : MonoBehaviour
 {
-    public enum PickupType { None, Water, Fire, Electricity, Air };
-    public PickupType currentPickup = PickupType.None;
+    public Particle.ParticleType currentPickup = Particle.ParticleType.None;
     public GameObject pickupPosition;
     public int pickupCount = 0;
     public int pickupRange = 1;
@@ -23,7 +22,7 @@ public class PlayerPickUp : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Mouse0))
             PickUp();
-        if (Input.GetKeyDown(KeyCode.Mouse1) && currentPickup != PickupType.None)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && currentPickup != Particle.ParticleType.None)
             DeployPickup();
     }
 
@@ -32,11 +31,11 @@ public class PlayerPickUp : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(pickupPosition.transform.position, pickupRange);
         foreach (Collider2D collider in colliders)
         {
-            Debug.Log(collider.gameObject.layer + " " + fluidLayer);
-            if (collider.gameObject.layer == fluidLayer && currentPickup == PickupType.None && currentPickupObject == null)
+            if (collider.gameObject.layer == fluidLayer && currentPickup == Particle.ParticleType.None ||
+                collider.TryGetComponent(out Particle particle) && currentPickup == particle.particleType
+                )
             {
                 currentPickupObject = collider.gameObject;
-                currentPickup = PickupType.Water;
                 pickupCount++;
                 
                 Destroy(collider.gameObject);

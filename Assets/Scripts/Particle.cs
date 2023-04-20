@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Particle : MonoBehaviour
 {
+    private Rigidbody2D _rb;
+    
     public enum ParticleType
     {
+        None,
         Water,
         Lava,
         Tar,
@@ -22,10 +25,8 @@ public class Particle : MonoBehaviour
         switch (particleType)
         {
             case ParticleType.Water:
-
                 break;
             case ParticleType.Lava:
-
                 break;
             case ParticleType.Tar:
 
@@ -56,6 +57,11 @@ public class Particle : MonoBehaviour
                     gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                 }
             }
+        }
+        
+        if(particleType == ParticleType.Tar && other.gameObject.layer == 10)
+        {
+            _rb.bodyType = RigidbodyType2D.Static;
         }
     }
 }

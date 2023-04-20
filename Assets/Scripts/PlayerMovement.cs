@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsInWater()
     {
-        return (Physics2D.OverlapCircleAll(transform.position, 1f, 1 << fluidLayer).Length > 0);
+        return (Physics2D.OverlapCircleAll(transform.position, 5f, 1 << fluidLayer).Length > 0);
     }
 
     private void OnDrawGizmos()
